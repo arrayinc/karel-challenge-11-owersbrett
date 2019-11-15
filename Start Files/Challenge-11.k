@@ -27,3 +27,91 @@ of the two center squares.
 There are many different algorithms you can use to solve this problem. The 
 interesting challenge is to come up with a strategy that works.
 */
+
+import "turns";
+
+function Solve(){
+	changeDirection();
+	changeDirection();
+	putBeeper();
+	turnRight();
+	moveC();
+}
+
+function changeDirection(){
+	dropBeepers();
+	frontFlip();
+	moveC();
+	while(beepersPresent()){
+		turnAround();
+		moveC();
+		turnAround();
+		dashC();
+		moveC();
+		if(noBeepersPresent()){
+			turnAround();
+			moveC();
+			turnNorth();
+		}
+	}
+	
+}
+
+function turnNorth(){
+	while(notFacingNorth()){
+		turnLeft();
+	}
+}
+
+function dashC(){
+	dash();
+	collectBeeper();
+}
+
+
+
+function collectBeeper(){
+	while(noBeepersPresent()){
+		moveC();
+	}
+	if(beepersPresent()){
+		pickBeeper();
+	}
+}
+
+function frontFlip(){
+	if (frontIsBlocked()){
+		turnAround();
+	}
+}
+
+
+
+function dash(){
+	if(frontIsBlocked()){
+		frontFlip();
+	}
+	while(frontIsClear()){
+		moveC();
+	}
+	frontFlip();
+}
+
+function dropBeepers(){
+	while(frontIsClear()){
+		dropC();
+		moveC();
+	}
+}
+
+function dropC(){ //check drop
+	if(noBeepersPresent()){
+		putBeeper();
+	}
+}
+
+function moveC(){ //check move
+	if(frontIsClear()){
+		move();
+	}
+}
